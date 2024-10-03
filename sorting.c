@@ -8,7 +8,7 @@ int Compare(const void* a, const void* b) {
   return(*(int*)a - *(int*)b);
 }
 
-int* Sorting(int x[10]){
+int* Sorting(int x[5]){
   //sleep(1);
   int n = 5 / sizeof(x[0]);
   
