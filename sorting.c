@@ -10,10 +10,9 @@ int compare(const void* a, const void* b) {
   return(*(int*)a - *(int*)b);
 }
 void* Sorting(int x[],int size){
-	//sleep(1);
    int n = size/sizeof(x[0]);
  
-   qsort(list, n, sizeof(int), compare);
+   qsort(list, SIZE, sizeof(int), compare);
    
    for (int i = 0; i < n; i++){
     printf("%d ",x[i]);
@@ -22,7 +21,10 @@ void* Sorting(int x[],int size){
 	}
 int main() {
 	pthread_t thread_id;
-	pthread_create(&thread_id,NULL,Sorting,NULL);
+	printf("Start of thread");
+	pthread_create(&thread_id,NULL,Sorting(list,45),NULL);
 	pthread_join(thread_id,NULL);
+	printf("End of thread");
+	exit(0);
   return 0;
 }
