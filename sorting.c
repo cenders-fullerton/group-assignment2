@@ -2,26 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int list[] = {7,12,19,3,18,4,2,6,15,8};
+#define SIZE (sizeof(list)/sizeof(*list))
+int list[10] = {7,12,19,3,18,4,2,6,15,8};
+int result[SIZE] = {0};
 
-int Compare(const void* a, const void* b) {
+int compare(const void* a, const void* b) {
   return(*(int*)a - *(int*)b);
 }
 
-int* Sorting(int x[5]){
-  //sleep(1);
-  int n = 5 / sizeof(x[0]);
-  
-  qsort(x,n,sizeof(int),Compare);
-  
-  return x;
-}
-
 int main() {
-
-  Sorting(list);
-  int z = sizeof(list);
-  for (int i = 0; i < z; i++){
+  int n = sizeof(list)/sizeof(list[0]);
+ 
+  qsort(list, n, sizeof(int), compare);
+ 
+  for (int i = 0; i < n; i++){
     printf("%d",list[i]);
   }
   return 0;
