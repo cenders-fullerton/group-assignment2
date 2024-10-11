@@ -22,7 +22,6 @@ int compare(const void* a, const void* b) {
   return(*(int*)a - *(int*)b);
 }
 void* Sorting(int x[],int size){
-   //int n = size;
  
    qsort(list, SIZE, sizeof(int), compare);
    
@@ -36,11 +35,15 @@ void* Sorting(int x[],int size){
 	}
 int main() {
 	Sorting(list,10);
-	pthread_t thread_id;
-	printf("Start of thread");
-	pthread_create(&thread_id,NULL,Sorting(list,10),NULL);
-	pthread_join(thread_id,NULL);
-	printf("End of thread");
-	exit(0);
+	pthread_t threads[2];
+	pthread_create(&threads[0],NULL,Sorting(list,5),(void*)NULL);
+	pthread_create(&threads[1],NULL,Sorting(list,10),(void*)NULL);
+	pthread_join(threads[0],NULL);
+	pthread_join(threads[1],NULL);
+
+	printf("the sorted array: ");
+	for (int i = 0; i < SIZE; i++){
+	printf("%d",list[i]);
+}
   return 0;
 }
