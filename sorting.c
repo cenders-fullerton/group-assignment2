@@ -3,47 +3,47 @@
 #include <stdlib.h>
 
 #define SIZE (sizeof(list)/sizeof(*list))
-int list[] = {7,12,19,3,18,4,2,6,15,8};
+int list[] = {7, 12, 19, 3, 18, 4, 2, -5, 6, 15, 8};
 int result[SIZE] = {0};
+int counter = 0;
 
-typedef struct{
-	int * subArray;
-	unsigned int size;
-	} SortingThreadParameters;
-	typedef struct
-	{
-		SortingThreadParameters left;
-		SortingThreadParameters right;
-	} MergingThreadParameters;
-	
-	
-	
 int compare(const void* a, const void* b) {
   return(*(int*)a - *(int*)b);
 }
 void* Sorting(int x[],int size){
  
-   qsort(list, SIZE, sizeof(int), compare);
+   qsort(x, size, sizeof(int), compare);
    
-	for(int j = 0; j < SIZE/2; j++){
-    printf("%d ",x[j]);
-   }
-  	for(int i = 5; i < SIZE; i++){
-    printf("%d ",x[i]);
-   }
+
    return NULL;
 	}
-int main() {
-	Sorting(list,10);
-	pthread_t threads[2];
-	pthread_create(&threads[0],NULL,Sorting(list,5),(void*)NULL);
-	pthread_create(&threads[1],NULL,Sorting(list,10),(void*)NULL);
-	pthread_join(threads[0],NULL);
-	pthread_join(threads[1],NULL);
 
-	printf("the sorted array: ");
-	for (int i = 0; i < SIZE; i++){
-	printf("%d",list[i]);
+void* merge(int sorted[], int final[]){
+	for (int i = 0; i < 5; i++){
+		result[counter] = sorted[i];
+		counter++;
+		}
+	}
+	
+	
+int main(){
+  int left[5];
+  int right[5];
+  for (int i = 0; i < SIZE/2; i++){
+	  left[i] = list[i];
+	  }
+  for (int i = 0; i < SIZE/2; i++){
+	  right[i] = list[i+5];
+	  }
+	 pthread_t tid;
+     pthread_create(&tid, NULL, Sorting(left,5),NULL);
+     pthread_create(&tid, NULL, Sorting(right,5),NULL);
+     pthread_create(&tid, NULL, merge(left,result),NULL);
+     pthread_create(&tid, NULL, merge(right,result),NULL);
+     pthread_exit(NULL);	  
+	printf("\n");
+	for (int i = 0; i < 10; i++){
+	printf("%d ",result[i]);
 }
-  return 0;
+return 0;
 }
